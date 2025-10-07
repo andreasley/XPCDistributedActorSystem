@@ -37,7 +37,7 @@ final class XPCMessageWithObject: Sendable
         self.raw = raw
     }
 
-    func extract<T>(_ type: T.Type) throws -> T where T: Decodable
+    func extract<T>(_ type: T.Type) throws -> sending T where T: Decodable
     {
         let messageType = xpc_get_type(raw)
         
@@ -58,7 +58,7 @@ final class XPCMessageWithObject: Sendable
         
         let data = Data(bytes: dataPointer, count: dataLength)
         
-        let object = try Self.decoder.decode(T.self, from: data)
+        nonisolated(unsafe) let object = try Self.decoder.decode(T.self, from: data)
         return object
     }
 }

@@ -6,7 +6,7 @@ public actor XPCServiceListener
         case previousInstanceExists
     }
     
-    static var shared: XPCServiceListener?
+    nonisolated(unsafe) static var shared: XPCServiceListener?
 
     let actorSystem: XPCDistributedActorSystem
     var lastConnection: XPCConnection? {
